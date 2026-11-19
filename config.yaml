@@ -1,0 +1,56 @@
+# RouteOpt Configuration
+# All paths are relative to project root unless absolute
+
+paths:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  data_scenarios: "data/scenarios"
+  data_cache: "data/cache"
+  benchmark_dir: "data/raw/benchmark"
+  cvrplib_dir: "data/raw/benchmark/cvrplib"
+  solomon_dir: "data/raw/benchmark/solomon"
+  results_dir: "reports"
+  docs_dir: "docs"
+  notebooks_dir: "notebooks"
+
+# Solver settings
+solver:
+  default_time_limit_seconds: 30
+  ortools_time_limit_seconds: 30
+  exact_milp_time_limit_seconds: 60
+  random_seed: 42
+  # Distance scaling for OR-Tools (must be integer)
+  # 1 for CVRPLIB (rounded integer distances)
+  # 10 or 100 for Solomon (real-valued Euclidean distances)
+  distance_scale_cvrplib: 1
+  distance_scale_solomon: 100
+
+# Distance matrix settings
+distance:
+  default_method: "euclidean"  # euclidean, haversine, osrm
+  osrm_url: "http://localhost:5000"
+  osrm_profile: "driving"
+  haversine_radius_km: 6371.0088  # WGS84 mean radius
+  cache_matrices: true
+  chunk_size: 100  # for OSRM table requests
+
+# Benchmark settings
+benchmark:
+  cvrplib_families: ["A", "B", "P", "X"]  # X = Uchoa instances
+  solomon_sets: ["C1", "R1", "RC1"]
+  max_customers_tiny: 12  # for exact MILP verification
+
+# OSRM settings
+osrm:
+  enabled: false  # set true after OSRM container is running
+  max_table_size: 1000
+
+# Streamlit settings
+streamlit:
+  default_time_limit: 60
+  max_routes_display: 20
+
+# Scenario generation
+scenarios:
+  default_seeds: [42, 123, 456, 789, 999]
+  default_customer_counts: [10, 20, 30, 50, 80, 100]
